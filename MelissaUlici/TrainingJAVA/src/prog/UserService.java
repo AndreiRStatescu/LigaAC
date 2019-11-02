@@ -38,15 +38,39 @@ public class UserService {
 			}
 		}
 		
-		
-		
 		public void add_friends(String currentUsername,String newFriendUsername)
 		{
-			for(User user : Database.users) {
-				if(user.getUsername().contentEquals(currentUsername))
+			for (User user: Database.users)
+			{
+				if (user.getUsername().equals(currentUsername))
 				{
-					
+					for (User newFriend : Database.users)
+					{
+						if(newFriend.getUsername().equals(newFriendUsername))
+						{
+							if(checkFriendship(user, newFriend))
+							{
+								System.out.println(String.format("Userul %s este deja prietenul userului %s", currentUsername, newFriendUsername));
+								return;
+							}
+							user.getFriends().add(newFriend);
+							System.out.println(user.getFriends());
+							return;
+						}
+					}
+					System.out.println(String.format("Userul %s nu exista", newFriendUsername));
+					return;
 				}
 			}
+			System.out.println(String.format("Userul %s nu exista", currentUsername));
 		}
-}
+		public boolean checkFriendship(User currentUsername, User newFriendUsername)
+		{
+			for (User user : currentUsername.getFriends())
+				if(user.getUsername().equals(newFriendUsername.getUsername()))
+				{
+					return true;
+				}
+			return false;
+		}
+	}
