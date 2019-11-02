@@ -27,6 +27,10 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public ArrayList<User> getFriends() {
+		return friends;
+	}
 	
 	
 	
